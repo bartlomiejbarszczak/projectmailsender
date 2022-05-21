@@ -4,21 +4,8 @@ import smtplib
 import random
 import multiprocessing
 import time
-
-
-class Contact:
-    def __init__(self, contact_):
-        self.contact_ = contact_
-        self.usedrules_ = []
-
-    def get_usedrules(self):
-        return self.usedrules_
-
-    def get_contact(self):
-        return self.contact_
-
-    def expand_usedrules(self, string):
-        self.usedrules_.append(string)
+from tkinter import *
+from PIL import Image, ImageTk
 
 
 def mail(list_of_contacts):
@@ -41,7 +28,34 @@ def mail(list_of_contacts):
     smtp.quit()
 
 
+class Contact:
+    def __init__(self, contact_):
+        self.contact_ = contact_
+        self.usedrules_ = []
+
+    def get_usedrules(self):
+        return self.usedrules_
+
+    def get_contact(self):
+        return self.contact_
+
+    def expand_usedrules(self, string):
+        self.usedrules_.append(string)
+
+
+class MyButton:
+    def __init__(self, source_file, ):
+        self.source_file_ = source_file
+
+    def create_mybutton(self):
+        pass
+
+
+
 class Application:
+    def __init__(self):
+        pass
+
     def run(self):
         pass
 
