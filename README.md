@@ -31,3 +31,7 @@ Dodano funkcje add_contact
 3:06PM 5/21/2022\
 Dodano funkcjonalnosci glownego menu
 ---
+
+6:31PM 5/21/2022\
+Multiprocessing dziala ale nie tak jak powinnien
+---

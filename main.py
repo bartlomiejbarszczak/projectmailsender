@@ -2,30 +2,10 @@ from src.messagestructure import message
 from src.goldenrules import all_rules
 import smtplib
 import random
-# import multiprocessing
-# import time
+import multiprocessing
+import time
 from tkinter import *
 from PIL import Image, ImageTk
-
-
-def mail(list_of_contacts):
-    email_address = 'npgprojektzlotemysli@outlook.com'
-    email_password = 'ProjektNPG2022'
-
-    smtp = smtplib.SMTP('smtp-mail.outlook.com', 587)
-    smtp.ehlo()
-    smtp.starttls()
-    smtp.login(email_address, email_password)
-
-    for elem in list_of_contacts:
-        goldenrule = random.choice(all_rules)
-        while goldenrule == elem.usedrules_:
-            goldenrule = random.choice(all_rules)
-
-        msg = message("Zlote mysli", goldenrule, "images/jestessuper.jpg")
-        smtp.sendmail(from_addr=email_address, to_addrs=elem.get_contact(), msg=msg.as_string())
-
-    smtp.quit()
 
 
 def add_contact(entry_label, root, contacts):
@@ -53,12 +33,6 @@ def delete_contact(entry_label, root, contacts):
         else:
             show_this_on_screen = Label(root, text="Nie znaleziono takiego adresu email", fg='black')
             show_this_on_screen.place(relx=0.5, rely=0.56, relwidth=0.65, anchor="center")
-
-
-# def print_all_contacts(contacts):
-#     for contact in contacts:
-#         print("Kontakty: " + contact.get_contact())
-#     print(" ")
 
 
 class Contact:
@@ -136,8 +110,8 @@ class Application:
             # Contact("nataliia@agh.edu.pl")
         ]
 
-    # def get_contacts(self):
-    #     return self.contacts_
+    def get_contacts(self):
+        return self.contacts_
 
     def run(self):
         # entry label
@@ -158,24 +132,52 @@ class Application:
         button_exit = MyButton('images/exit_button.png', self.root_, self.root_.quit, 0.5, 0.79)
         button_exit.create_my_button()
 
-        # # test button
-        # button_test = MyButton('images/exit_button.png', self.root_, lambda: print_all_contacts(self.contacts_), 0.5,
-        #                        0.86)
-        # button_test.create_my_button()
+        # test button
+        button_test = MyButton('images/exit_button.png', self.root_, lambda: self.send_mails(), 0.5,
+                               0.86)
+        button_test.create_my_button()
 
         self.root_.iconify()
         self.root_.update()
         self.root_.deiconify()
         self.root_.mainloop()
 
+    def send_mails(self):
+        # email_address = 'npgprojektzlotemysli@outlook.com'
+        # email_password = 'ProjektNPG2022'
+        #
+        # smtp = smtplib.SMTP('smtp-mail.outlook.com', 587)
+        # smtp.ehlo()
+        # smtp.starttls()
+        # smtp.login(email_address, email_password)
+
+        for contact in self.contacts_:
+            print("Mail: Kontakty: " + contact.get_contact())
+        print(" ")
+
+        # for elem in list_of_contacts:
+        #     goldenrule = random.choice(all_rules)
+        #     while goldenrule == elem.usedrules_:
+        #         goldenrule = random.choice(all_rules)
+        #
+        #     msg = message("Zlote mysli", goldenrule, "images/jestessuper.jpg")
+        #     smtp.sendmail(from_addr=email_address, to_addrs=elem.get_contact(), msg=msg.as_string())
+        #
+        # smtp.quit()
+
+    def start_app(self):
+        p1 = multiprocessing.Process(target=self.run())
+        p2 = multiprocessing.Process(target=self.send_mails())
+
+        p1.start()
+        p2.start()
+        p1.join()
+        p2.terminate()
+
 
 def main():
-    apps = []
-    for i in range(0, 1):
-        apps.append(Application())
-
-    for app in apps:
-        app.run()
+    app = Application()
+    app.start_app()
 
 
 if __name__ == "__main__":
