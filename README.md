@@ -23,3 +23,7 @@ Dodano funkcjonalonsc do przysiku exit
 2:06PM 5/21/2022\
 Zmodyfikowano README.md
 ---
+
+2:39PM 5/21/2022\
+Dodano funkcje add_contact
+---
