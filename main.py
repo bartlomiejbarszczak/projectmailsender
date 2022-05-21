@@ -29,18 +29,36 @@ def mail(list_of_contacts):
 
 
 def add_contact(entry_label, root, contacts):
-    value = entry_label.get_input_entry()
-    print(value)
-    if_include = value.find("@")
+    mail_contact = entry_label.get_input_entry()
+    if_include = mail_contact.find("@")
     if if_include == -1:
         show_this_on_screen = Label(root, text="Niepoprawny adres email")
         show_this_on_screen.place(relx=0.5, rely=0.56, relwidth=0.65, anchor="center")
     else:
-        temp = Contact(value)
+        temp = Contact(mail_contact)
         contacts.append(temp)
-        show_this_on_screen = Label(root, text="Dodano adres email: " + value)
+        show_this_on_screen = Label(root, text="Dodano adres email: " + mail_contact)
         show_this_on_screen.place(relx=0.5, rely=0.56, relwidth=0.65, anchor="center")
-        entry_label.my_entry_delete()
+        entry_label.delete_input_my_entry()
+
+
+def delete_contact(entry_label, root, contacts):
+    mail_contact = entry_label.get_input_entry()
+    for contact in contacts:
+        if contact.get_contact() == mail_contact:
+            contacts.remove(contact)
+            show_this_on_screen = Label(root, text="Adres " + contact.get_contact() + " zostal usuniety")
+            show_this_on_screen.place(relx=0.5, rely=0.56, relwidth=0.65, anchor="center")
+            entry_label.delete_input_my_entry()
+        else:
+            show_this_on_screen = Label(root, text="Nie znaleziono takiego adresu email", fg='black')
+            show_this_on_screen.place(relx=0.5, rely=0.56, relwidth=0.65, anchor="center")
+
+
+# def print_all_contacts(contacts):
+#     for contact in contacts:
+#         print("Kontakty: " + contact.get_contact())
+#     print(" ")
 
 
 class Contact:
@@ -88,7 +106,7 @@ class MyEntry:
     def get_input_entry(self):
         return self.input_entry_.get()
 
-    def my_entry_delete(self):
+    def delete_input_my_entry(self):
         self.input_entry_.delete(0, END)
 
 
@@ -118,6 +136,9 @@ class Application:
             # Contact("nataliia@agh.edu.pl")
         ]
 
+    # def get_contacts(self):
+    #     return self.contacts_
+
     def run(self):
         # entry label
         entry_label = MyEntry(self.root_, 0.5, 0.592)
@@ -129,12 +150,18 @@ class Application:
         button_add.create_my_button()
 
         # delete button
-        button_del = MyButton('images/delete_button.png', self.root_, None, 0.5, 0.72)
+        button_del = MyButton('images/delete_button.png', self.root_,
+                              lambda: delete_contact(entry_label, self.root_, self.contacts_), 0.5, 0.72)
         button_del.create_my_button()
 
         # exit button
         button_exit = MyButton('images/exit_button.png', self.root_, self.root_.quit, 0.5, 0.79)
         button_exit.create_my_button()
+
+        # # test button
+        # button_test = MyButton('images/exit_button.png', self.root_, lambda: print_all_contacts(self.contacts_), 0.5,
+        #                        0.86)
+        # button_test.create_my_button()
 
         self.root_.iconify()
         self.root_.update()

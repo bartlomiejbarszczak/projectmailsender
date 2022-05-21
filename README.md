@@ -27,3 +27,7 @@ Zmodyfikowano README.md
 2:39PM 5/21/2022\
 Dodano funkcje add_contact
 ---
+
+3:06PM 5/21/2022\
+Dodano funkcjonalnosci glownego menu
+---
