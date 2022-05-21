@@ -44,12 +44,19 @@ class Contact:
 
 
 class MyButton:
-    def __init__(self, source_file, ):
+    def __init__(self, source_file, passed_root, passed_command, passed_relx, passed_rely):
         self.source_file_ = source_file
+        self.root_ = passed_root
+        self.command_ = passed_command
+        self.relx_ = passed_relx
+        self.rely_ = passed_rely
 
-    def create_mybutton(self):
-        pass
-
+    def create_my_button(self):
+        self.add_button_pre = Image.open(self.source_file_)
+        self.add_button_pre = self.add_button_pre.resize((200, 27), Image.ANTIALIAS)
+        self.add_button_pre = ImageTk.PhotoImage(self.add_button_pre)
+        self.add_button = Button(self.root_, image=self.add_button_pre, bg='#4898d0', borderwidth=0, command=self.command_, height=27, width=200)
+        self.add_button.place(relx=self.relx_, rely=self.rely_, anchor="center")
 
 
 class Application:

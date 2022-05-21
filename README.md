@@ -9,3 +9,7 @@ Dodano .gitignore
 11:08AM 5/21/2022
 Utworzono i dodano pliki .py
 ---
+
+12:35PM 5/21/2022
+Dodano class MyButton
+---
