@@ -6,6 +6,21 @@ import multiprocessing
 import time
 
 
+class Contact:
+    def __init__(self, contact_):
+        self.contact_ = contact_
+        self.usedrules_ = []
+
+    def get_usedrules(self):
+        return self.usedrules_
+
+    def get_contact(self):
+        return self.contact_
+
+    def expand_usedrules(self, string):
+        self.usedrules_.append(string)
+
+
 def mail(list_of_contacts):
     email_address = 'npgprojektzlotemysli@outlook.com'
     email_password = 'ProjektNPG2022'
