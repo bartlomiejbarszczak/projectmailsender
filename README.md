@@ -13,3 +13,9 @@ Utworzono i dodano pliki .py
 12:35PM 5/21/2022
 Dodano class MyButton
 ---
+
+2:03PM 5/21/2022
+Stworzono root
+Dodano pierwsze przyciski
+Dodano funkcjonalonsc do przysiku exit
+---
