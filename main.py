@@ -2,7 +2,7 @@ from src.messagestructure import message
 from src.goldenrules import all_rules
 import smtplib
 import random
-import multiprocessing
+import threading
 import time
 from tkinter import *
 from PIL import Image, ImageTk
@@ -132,17 +132,23 @@ class Application:
         button_exit = MyButton('images/exit_button.png', self.root_, self.root_.quit, 0.5, 0.79)
         button_exit.create_my_button()
 
-        # test button
-        button_test = MyButton('images/exit_button.png', self.root_, lambda: self.send_mails(), 0.5,
-                               0.86)
-        button_test.create_my_button()
+        # threading mail function
+        t1 = threading.Thread(target=self.send_mails)
+        t1.start()
 
         self.root_.iconify()
         self.root_.update()
         self.root_.deiconify()
         self.root_.mainloop()
 
+
     def send_mails(self):
+        while True:
+            for contact in self.contacts_:
+                print("Mail: Kontakty: " + contact.get_contact())
+            time.sleep(5)
+            print(" ")
+
         # email_address = 'npgprojektzlotemysli@outlook.com'
         # email_password = 'ProjektNPG2022'
         #
@@ -150,34 +156,20 @@ class Application:
         # smtp.ehlo()
         # smtp.starttls()
         # smtp.login(email_address, email_password)
-
-        for contact in self.contacts_:
-            print("Mail: Kontakty: " + contact.get_contact())
-        print(" ")
-
-        # for elem in list_of_contacts:
+        # for contact in self.contacts_:
         #     goldenrule = random.choice(all_rules)
-        #     while goldenrule == elem.usedrules_:
+        #     while goldenrule == contact.usedrules_:
         #         goldenrule = random.choice(all_rules)
         #
         #     msg = message("Zlote mysli", goldenrule, "images/jestessuper.jpg")
-        #     smtp.sendmail(from_addr=email_address, to_addrs=elem.get_contact(), msg=msg.as_string())
+        #     smtp.sendmail(from_addr=email_address, to_addrs=contact.get_contact(), msg=msg.as_string())
         #
         # smtp.quit()
-
-    def start_app(self):
-        p1 = multiprocessing.Process(target=self.run())
-        p2 = multiprocessing.Process(target=self.send_mails())
-
-        p1.start()
-        p2.start()
-        p1.join()
-        p2.terminate()
 
 
 def main():
     app = Application()
-    app.start_app()
+    app.run()
 
 
 if __name__ == "__main__":

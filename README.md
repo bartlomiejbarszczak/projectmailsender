@@ -35,3 +35,7 @@ Dodano funkcjonalnosci glownego menu
 6:31PM 5/21/2022\
 Multiprocessing dziala ale nie tak jak powinnien
 ---
+
+12:43AM 5/25/2022
+Sa postepy z threading
+---
