@@ -6,11 +6,13 @@ from src.htmlstructure import htmltext
 import os
 
 
+# funkja odpowiada za tworzenie struktury wiadomosci
 def message(subject="Notification", text="", img=None, attachment=None):
     msg = MIMEMultipart('alternative')
-    msg['Subject'] = subject
-    msg.attach(MIMEText(htmltext(text), 'html'))
+    msg['Subject'] = subject  # temat wiadomosci
+    msg.attach(MIMEText(htmltext(text), 'html'))  # korzystanie z funkcji do tworzenia wiadomosci w stylu HTML
 
+    # zalacznaie zdjecia w zalaczniku
     if img is not None:
         if type(img) is not list:
             img = [img]
@@ -19,6 +21,7 @@ def message(subject="Notification", text="", img=None, attachment=None):
             img_data = open(one_img, 'rb').read()
             msg.attach(MIMEImage(img_data, name=os.path.basename(one_img)))
 
+    # zalaczanie innego pliku niz zdjecie w zalaczniku
     if attachment is not None:
         if type(attachment) is not list:
             attachment = [attachment]

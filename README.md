@@ -36,10 +36,14 @@ Dodano funkcjonalnosci glownego menu
 Multiprocessing dziala ale nie tak jak powinnien
 ---
 
-12:43AM 5/25/2022
+12:43AM 5/25/2022\
 Sa postepy z threading
 ---
 
-1:44PM 5/25/2022
+1:44PM 5/25/2022\
 To koniec, dotarlismy do konca
+---
+
+2:02PM 5/25/2022\
+Dodanie komentarzy i odblokowanie calej listy kontaktow
 ---

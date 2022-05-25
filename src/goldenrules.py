@@ -1,3 +1,4 @@
+# baza zlotych mysli
 all_rules = [
     "Każdy głupi potrafi zawierać transakcje handlowe, ale trzeba geniuszu, wiary i wytrwałości by stworzyć markę.",
     "Za każdym razem, kiedy widzisz biznes, który odnosi sukces, oznacza to, że ktoś kiedyś podjął odważną decyzję.",

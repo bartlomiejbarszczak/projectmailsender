@@ -1,3 +1,4 @@
+# towrzenie waidomosci w stylu HTML
 def htmltext(text):
     htmltextmessage = """\
     <!DOCTYPE html>
