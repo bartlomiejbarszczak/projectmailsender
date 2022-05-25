@@ -86,6 +86,9 @@ class MyEntry:
 
 class Application:
     def __init__(self):
+        self.stop_thread = threading.Event()
+        self.count_ = 0
+
         self.root_ = Tk()
         self.root_.title('NPG zlote mysli')
         self.root_.geometry('436x772')
@@ -129,11 +132,11 @@ class Application:
         button_del.create_my_button()
 
         # exit button
-        button_exit = MyButton('images/exit_button.png', self.root_, self.root_.quit, 0.5, 0.79)
+        button_exit = MyButton('images/exit_button.png', self.root_, self.exit_program, 0.5, 0.79)
         button_exit.create_my_button()
 
         # threading mail function
-        t1 = threading.Thread(target=self.send_mails)
+        t1 = threading.Thread(target=self.schedule_time)
         t1.start()
 
         self.root_.iconify()
@@ -141,30 +144,39 @@ class Application:
         self.root_.deiconify()
         self.root_.mainloop()
 
+    def exit_program(self):
+        self.stop_thread.set()
+        self.root_.quit()
+
+    def schedule_time(self):
+        self.send_mails()
+        while True:
+            if self.count_ == 100:
+                self.send_mails()
+                self.count_ = 0
+            else:
+                self.count_ += 1
+                time.sleep(0.1)
+                if self.stop_thread.is_set():
+                    break
 
     def send_mails(self):
-        while True:
-            for contact in self.contacts_:
-                print("Mail: Kontakty: " + contact.get_contact())
-            time.sleep(5)
-            print(" ")
+        email_address = 'npgprojektzlotemysli@outlook.com'
+        email_password = 'ProjektNPG2022'
 
-        # email_address = 'npgprojektzlotemysli@outlook.com'
-        # email_password = 'ProjektNPG2022'
-        #
-        # smtp = smtplib.SMTP('smtp-mail.outlook.com', 587)
-        # smtp.ehlo()
-        # smtp.starttls()
-        # smtp.login(email_address, email_password)
-        # for contact in self.contacts_:
-        #     goldenrule = random.choice(all_rules)
-        #     while goldenrule == contact.usedrules_:
-        #         goldenrule = random.choice(all_rules)
-        #
-        #     msg = message("Zlote mysli", goldenrule, "images/jestessuper.jpg")
-        #     smtp.sendmail(from_addr=email_address, to_addrs=contact.get_contact(), msg=msg.as_string())
-        #
-        # smtp.quit()
+        smtp = smtplib.SMTP('smtp-mail.outlook.com', 587)
+        smtp.ehlo()
+        smtp.starttls()
+        smtp.login(email_address, email_password)
+        for contact in self.contacts_:
+            goldenrule = random.choice(all_rules)
+            while goldenrule == contact.usedrules_:
+                goldenrule = random.choice(all_rules)
+
+            msg = message("Zlote mysli", goldenrule, "images/jestessuper.jpg")
+            smtp.sendmail(from_addr=email_address, to_addrs=contact.get_contact(), msg=msg.as_string())
+
+        smtp.quit()
 
 
 def main():
