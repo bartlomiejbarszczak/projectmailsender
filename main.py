@@ -159,7 +159,7 @@ class Application:
     def schedule_time(self):
         self.send_mails()
         while True:
-            if self.count_ == 100:
+            if self.count_ == 864000:
                 self.send_mails()
                 self.count_ = 0
             else:
